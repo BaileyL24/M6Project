@@ -5,6 +5,8 @@
 
 package edu.fscj.cen3024c.taskmanager.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import edu.fscj.cen3024c.taskmanager.dto.CreateUserRequestDTO;
 import edu.fscj.cen3024c.taskmanager.dto.UpdateUserRequestDTO;
 import edu.fscj.cen3024c.taskmanager.dto.UserDTO;
@@ -25,6 +27,7 @@ public class UserController {
 
     // ===== READ endpoints return DTOs =====
 
+    @CrossOrigin(origins = {"http://example.com", "http://localhost"})
     @GetMapping
     public List<UserDTO> getAllUsers() {
         return userService.findAll();

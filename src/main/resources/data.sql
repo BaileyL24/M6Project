@@ -6,15 +6,17 @@ INSERT INTO priorities (level) VALUES ('MEDIUM') ON CONFLICT DO NOTHING;
 INSERT INTO priorities (level) VALUES ('HIGH') ON CONFLICT DO NOTHING;
 
 -- Users
-INSERT INTO users (username, password) VALUES ('alice', 'pass123');
-INSERT INTO users (username, password) VALUES ('bob', 'pass123');
-INSERT INTO users (username, password) VALUES ('carol', 'pass123');
-INSERT INTO users (username, password) VALUES ('dave', 'pass123');
-INSERT INTO users (username, password) VALUES ('eve', 'pass123');
+-- Users (salt + hash placeholders)
+INSERT INTO users (username, salt, password_hash) VALUES
+('alice', 'AAAAAAAAAAAAAAAAAAAAAA==', 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB='),
+('bob',   'AAAAAAAAAAAAAAAAAAAAAA==', 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB='),
+('carol', 'AAAAAAAAAAAAAAAAAAAAAA==', 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB='),
+('dave',  'AAAAAAAAAAAAAAAAAAAAAA==', 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB='),
+('eve',   'AAAAAAAAAAAAAAAAAAAAAA==', 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=');
 
 -- Tasks (round-robin priorities)
 INSERT INTO tasks (title, description, status, due_date, priority_id)
-VALUES 
+VALUES
 ('Task 1', 'Description for Task 1', 'PENDING', '2025-10-01', 1),
 ('Task 2', 'Description for Task 2', 'IN_PROGRESS', '2025-10-02', 2),
 ('Task 3', 'Description for Task 3', 'COMPLETED', '2025-10-03', 3),
@@ -27,7 +29,7 @@ VALUES
 ('Task 10', 'Description for Task 10', 'PENDING', '2025-10-10', 1);
 
 -- Subtasks (1–3 per task, mix of statuses)
-INSERT INTO subtasks (title, status, task_id) VALUES 
+INSERT INTO subtasks (title, status, task_id) VALUES
 ('Subtask 1.1', 'PENDING', 1),
 ('Subtask 1.2', 'IN_PROGRESS', 1),
 ('Subtask 2.1', 'COMPLETED', 2),
